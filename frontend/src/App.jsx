@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from './api.js';
 import ImageUpload from './components/ImageUpload.jsx';
 import ImageGrid from './components/ImageGrid.jsx';
 
@@ -10,7 +10,7 @@ export default function App() {
 
   // Load all images on mount
   useEffect(() => {
-    axios.get('/api/images')
+    api.get('/api/images')
       .then(({ data }) => setImages(data))
       .catch(() => setError('Cannot reach backend — is the server running on port 4000?'))
       .finally(() => setLoading(false));

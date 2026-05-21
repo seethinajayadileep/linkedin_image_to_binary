@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import axios from 'axios';
+import api from '../api.js';
 
 export default function ImageUpload({ onUploaded }) {
   const [file, setFile]         = useState(null);
@@ -42,7 +42,7 @@ export default function ImageUpload({ onUploaded }) {
     try {
       const form = new FormData();
       form.append('image', file);
-      const { data } = await axios.post('/api/upload', form);
+      const { data } = await api.post('/api/upload', form);
       onUploaded(data.image);
       setSuccess(`"${file.name}" uploaded successfully!`);
       setFile(null);

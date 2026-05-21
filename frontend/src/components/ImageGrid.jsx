@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import axios from 'axios';
+import api from '../api.js';
+
+const BASE = import.meta.env.VITE_API_URL ?? '';
 
 export default function ImageGrid({ images, onDeleted }) {
   const [binaryPanel, setBinaryPanel] = useState(null);
@@ -11,7 +13,7 @@ export default function ImageGrid({ images, onDeleted }) {
     setFetchingId(img.id);
     setBinaryPanel(null);
     try {
-      const resp = await axios.get(`/api/images/${img.id}`, {
+      const resp = await api.get(`/api/images/${img.id}`, {
         responseType: 'arraybuffer',   // ← receive raw binary buffer
       });
 
@@ -31,7 +33,7 @@ export default function ImageGrid({ images, onDeleted }) {
   const deleteImage = async (img) => {
     if (!window.confirm(`Delete "${img.name}"?`)) return;
     try {
-      await axios.delete(`/api/images/${img.id}`);
+      await api.delete(`/api/images/${img.id}`);
       if (binaryPanel?.id === img.id) setBinaryPanel(null);
       onDeleted(img.id);
     } catch (err) {
@@ -85,7 +87,7 @@ export default function ImageGrid({ images, onDeleted }) {
             {/* Thumbnail — served directly as binary from the backend */}
             <div style={s.thumbBox}>
               <img
-                src={`/api/images/${img.id}`}
+                src={`${BASE}/api/images/${img.id}`}
                 alt={img.name}
                 style={s.thumb}
                 onError={(e) => { e.target.style.display = 'none'; }}
