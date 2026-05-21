@@ -58,7 +58,7 @@ export default function ImageGrid({ images, onDeleted }) {
         <div style={s.panel}>
           <div style={s.panelHeader}>
             <span style={{ color: '#60aaff', fontWeight: 600 }}>
-              Binary Response — <code style={{ fontSize: 13 }}>GET /api/images/{binaryPanel.id}</code>
+              Binary Response — <code style={{ fontSize: 13 }}>GET https://linkedin-image-to-binary.vercel.app/api/images/{binaryPanel.id}</code>
             </span>
             <button style={s.closeBtn} onClick={() => setBinaryPanel(null)}>✕</button>
           </div>
